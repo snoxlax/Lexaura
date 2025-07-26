@@ -33,7 +33,12 @@ export default function LetterEditor({ letterToEdit }: LetterEditorProps) {
 
   return (
     <div className="flex grow flex-col">
-      <header className="space-y-1.5 border-b px-3 py-5 text-center"></header>
+      <header className="space-y-1.5 border-b px-3 py-5 text-center">
+        <h1 className="text-2xl font-bold">Text Editor</h1>
+        <p className="text-muted-foreground text-sm">
+          Write and organize your text with real-time preview.
+        </p>
+      </header>
       <main className="relative grow">
         <div className="absolute top-0 bottom-0 flex w-full">
           <div
@@ -61,8 +66,8 @@ export default function LetterEditor({ letterToEdit }: LetterEditorProps) {
           </div>
         </div>
       </main>
-      <footer className="w-full border-t px-3 py-5">
-        <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-3">
+      <footer className="w-full border-t px-2 py-4">
+        <div className="flex flex-wrap justify-between gap-3 px-4">
           <Button
             variant="outline"
             size="icon"
@@ -72,7 +77,7 @@ export default function LetterEditor({ letterToEdit }: LetterEditorProps) {
           >
             {showSmLetterPreview ? <PenLineIcon /> : <FileUserIcon />}
           </Button>
-          <div className="flex items-center gap-3">
+          <div className="flex gap-3 px-4">
             <p
               className={cn(
                 "text-muted-foreground transition-all duration-300",

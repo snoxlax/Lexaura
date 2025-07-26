@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     absolute: "Lexaura",
   },
   description:
-    "Perfect your text with AI-powered corrections. Lexaura automatically improves grammar, tone, and structure to make your writing clear, professional, and impactful.",
+    "Clean, distraction-free text editor with real-time preview. Write, edit, and manage your text documents with auto-save and easy organization.",
 };
 
 export default function RootLayout({

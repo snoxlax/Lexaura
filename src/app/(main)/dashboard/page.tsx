@@ -44,7 +44,7 @@ export default async function Page() {
           <FileText className="text-muted-foreground/50 mx-auto mb-4 h-12 w-12" />
           <h3 className="mb-2 text-lg font-medium">No texts yet</h3>
           <p className="text-muted-foreground mb-4">
-            Create your first text to get started with AI-powered corrections
+            Create your first text to get started with clean, organized writing
           </p>
           <Button asChild>
             <Link href="/editor/letter">

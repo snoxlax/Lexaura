@@ -42,16 +42,16 @@ export default async function Home() {
         <div className="mx-auto max-w-4xl space-y-8 text-center">
           <div className="space-y-4">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              Perfect Your Text with{" "}
+              Write Better with{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                AI-Powered
+                Clean & Simple
               </span>{" "}
-              Corrections
+              Text Editing
             </h1>
             <p className="text-muted-foreground mx-auto max-w-2xl text-xl leading-relaxed">
-              Write with confidence. Lexaura automatically improves your
-              grammar, tone, and structure so your messages are always clear,
-              professional, and impactful.
+              Write with confidence using our distraction-free editor. Real-time
+              preview, auto-save, and easy organization keep your writing
+              focused and organized.
             </p>
           </div>
 
@@ -82,10 +82,10 @@ export default async function Home() {
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900">
               <Zap className="h-6 w-6 text-blue-600" />
             </div>
-            <h3 className="mb-2 text-xl font-semibold">Instant Corrections</h3>
+            <h3 className="mb-2 text-xl font-semibold">Real-Time Preview</h3>
             <p className="text-muted-foreground">
-              AI analyzes your text in real-time, fixing grammar, spelling, and
-              style issues automatically.
+              See your formatted text instantly as you type in a clean,
+              side-by-side preview.
             </p>
           </div>
 
@@ -93,10 +93,10 @@ export default async function Home() {
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900">
               <CheckCircle className="h-6 w-6 text-purple-600" />
             </div>
-            <h3 className="mb-2 text-xl font-semibold">Smart Suggestions</h3>
+            <h3 className="mb-2 text-xl font-semibold">Text Management</h3>
             <p className="text-muted-foreground">
-              Get intelligent recommendations for tone, clarity, and
-              professional communication.
+              Organize all your texts in one place. Easy access to edit, copy,
+              and delete your documents.
             </p>
           </div>
 
@@ -116,8 +116,8 @@ export default async function Home() {
         <div className="mt-24 space-y-6 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 p-12 text-center text-white">
           <h2 className="text-3xl font-bold">Ready to Write Better?</h2>
           <p className="mx-auto max-w-2xl text-xl text-blue-100">
-            Join thousands of users who trust Lexaura to make their writing
-            clear, professional, and error-free.
+            Join thousands of users who trust Lexaura for clean,
+            distraction-free writing with powerful organization tools.
           </p>
           <Button
             size="lg"
@@ -145,7 +145,7 @@ export default async function Home() {
               <span className="font-semibold">Lexaura</span>
             </div>
             <p className="text-muted-foreground text-sm">
-              © 2024 Lexaura. AI-powered text correction made simple.
+              © 2025 Lexaura. Clean text editing made simple.
             </p>
           </div>
         </div>
