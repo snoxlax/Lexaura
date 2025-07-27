@@ -1,20 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import useDebounce from "@/hooks/useDebounce";
-import { LetterDocumentValues } from "@/lib/validation";
+import { LetterValues } from "@/lib/validation";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { saveLetter } from "./actions";
 import { fileReplacer } from "@/lib/utils";
 
-export default function useAutoSaveLetter(
-  letterData: LetterDocumentValues & { id?: string },
-) {
+export default function useAutoSaveLetter(letterData: LetterValues) {
   const searchParams = useSearchParams();
 
   const { toast } = useToast();
 
-  const debouncedLetterData = useDebounce(letterData, 2000);
+  const debouncedLetterData = useDebounce(letterData, 3000);
 
   const [letterId, setLetterId] = useState(letterData.id);
 

@@ -1,12 +1,11 @@
 "use server";
 
-import { LetterDocumentValues, letterDocumentSchema } from "@/lib/validation";
+import { LetterValues, letterDocumentSchema } from "@/lib/validation";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
+import { improveText } from "@/lib/ai";
 
-export async function saveLetter(
-  values: LetterDocumentValues & { id?: string },
-) {
+export async function saveLetter(values: LetterValues) {
   const { id } = values;
   const letterValues = letterDocumentSchema.parse(values);
 
@@ -41,5 +40,25 @@ export async function saveLetter(
         userId,
       },
     });
+  }
+}
+
+export async function improveLetterText(content: string, mood: string) {
+  const { userId } = await auth();
+
+  if (!userId) {
+    throw new Error("User not authenticated");
+  }
+
+  if (!content.trim()) {
+    throw new Error("No content to improve");
+  }
+
+  try {
+    const improvedContent = await improveText(content, mood || "professional");
+    return { improvedContent };
+  } catch (error) {
+    console.error("Error improving text:", error);
+    throw new Error("Failed to improve text. Please try again.");
   }
 }

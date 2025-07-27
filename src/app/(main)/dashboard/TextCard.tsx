@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, MoreHorizontal } from "lucide-react";
+import { Calendar, MoreHorizontal, Heart } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +17,7 @@ interface TextCardProps {
     id: string;
     subject: string | null;
     content: string | null;
+    mood: string | null;
     updatedAt: Date;
   };
 }
@@ -31,13 +32,21 @@ export default function TextCard({ text }: TextCardProps) {
               <CardTitle className="line-clamp-1 text-lg">
                 {text.subject || "Untitled Text"}
               </CardTitle>
-              <div className="text-muted-foreground mt-1 flex items-center gap-1 text-sm">
-                <Calendar className="size-3" />
-                {new Intl.DateTimeFormat("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                }).format(new Date(text.updatedAt))}
+              <div className="text-muted-foreground mt-1 flex items-center gap-3 text-sm">
+                <div className="flex items-center gap-1">
+                  <Calendar className="size-3" />
+                  {new Intl.DateTimeFormat("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  }).format(new Date(text.updatedAt))}
+                </div>
+                {text.mood && (
+                  <div className="flex items-center gap-1">
+                    <Heart className="size-3" />
+                    {text.mood}
+                  </div>
+                )}
               </div>
             </div>
             <DropdownMenu>
