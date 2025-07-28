@@ -21,8 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, Sparkles } from "lucide-react";
-import React, { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
+import React, { useEffect } from "react";
 
 interface LetterFormProps {
   letterData: LetterValues;

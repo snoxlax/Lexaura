@@ -4,11 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/logo3.png";
 import { UserButton } from "@clerk/nextjs";
-import { CreditCard, Plus } from "lucide-react";
+import { CreditCard } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
