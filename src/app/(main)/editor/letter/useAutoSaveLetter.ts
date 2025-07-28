@@ -25,7 +25,7 @@ export default function useAutoSaveLetter(letterData: LetterValues) {
 
   // Use refs to prevent race conditions
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const currentSavePromiseRef = useRef<Promise<any> | null>(null);
+  const currentSavePromiseRef = useRef<Promise<{ id: string }> | null>(null);
 
   useEffect(() => {
     setIsError(false);
