@@ -9,9 +9,16 @@ import ThemeToggle from "@/components/ThemeToggle";
 import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Ensure component is mounted on client side before accessing theme
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <header className="shadow-sm">
@@ -31,7 +38,8 @@ export default function Navbar() {
           <ThemeToggle />
           <UserButton
             appearance={{
-              baseTheme: theme === "dark" ? dark : undefined,
+              // Only apply theme after component is mounted on client
+              baseTheme: mounted && theme === "dark" ? dark : undefined,
               elements: {
                 avatarBox: {
                   width: 35,
