@@ -33,8 +33,7 @@ export default function DeleteTextButton({ textId }: DeleteTextButtonProps) {
           title: "Text deleted",
           description: "Your text has been successfully deleted.",
         });
-      } catch (error) {
-        console.error("Error deleting text:", error);
+      } catch {
         toast({
           variant: "destructive",
           title: "Error",

@@ -35,7 +35,6 @@ export default function useAutoSaveLetter(letterData: LetterValues) {
     async function save() {
       // Prevent concurrent saves
       if (currentSavePromiseRef.current) {
-        console.log("Save already in progress, skipping...");
         return;
       }
 
@@ -45,8 +44,6 @@ export default function useAutoSaveLetter(letterData: LetterValues) {
 
         const newData = structuredClone(debouncedLetterData);
 
-        console.log("Attempting to save letter with data:", newData);
-
         const savePromise = saveLetter({
           ...newData,
           id: letterId,
@@ -54,8 +51,6 @@ export default function useAutoSaveLetter(letterData: LetterValues) {
 
         currentSavePromiseRef.current = savePromise;
         const updatedLetter = await savePromise;
-
-        console.log("Letter saved successfully:", updatedLetter);
 
         setLetterId(updatedLetter.id);
         setLastSavedData(newData);
@@ -74,7 +69,8 @@ export default function useAutoSaveLetter(letterData: LetterValues) {
         }
       } catch (error) {
         setIsError(true);
-        console.error("Save error:", error);
+        const message = error instanceof Error ? error.message : "Unknown error";
+        console.error("Save error:", message);
         const { dismiss } = toast({
           variant: "destructive",
           description: React.createElement("div", { className: "space-y-3" }, [
@@ -100,19 +96,11 @@ export default function useAutoSaveLetter(letterData: LetterValues) {
       }
     }
 
-    console.log(
-      "debouncedLetterData",
-      JSON.stringify(debouncedLetterData, fileReplacer),
-    );
-    console.log("lastSavedData", JSON.stringify(lastSavedData, fileReplacer));
-
     const hasUnsavedChanges =
       JSON.stringify(debouncedLetterData, fileReplacer) !==
       JSON.stringify(lastSavedData, fileReplacer);
 
     if (hasUnsavedChanges && debouncedLetterData && !isSaving && !isError) {
-      console.log("Scheduling save letter");
-
       // Clear any existing timeout
       if (saveTimeoutRef.current) {
         clearTimeout(saveTimeoutRef.current);

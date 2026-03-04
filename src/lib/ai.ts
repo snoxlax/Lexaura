@@ -23,10 +23,10 @@ ${content}`;
       ],
     });
 
-    console.log(response.choices[0].message?.content?.trim() || "");
     return response.choices[0].message?.content?.trim() || "";
   } catch (error) {
-    console.error("Error improving text:", error);
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.error("Error improving text:", message);
     throw new Error("Failed to improve text");
   }
 }

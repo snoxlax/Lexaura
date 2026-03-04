@@ -54,8 +54,7 @@ export default function LetterEditor({ letterToEdit }: LetterEditorProps) {
         title: "Text improved successfully!",
         description: "Check the preview to see the AI-enhanced version.",
       });
-    } catch (error) {
-      console.error("Error improving text:", error);
+    } catch {
       toast({
         title: "Failed to improve text",
         description: "Please check your internet connection and try again.",

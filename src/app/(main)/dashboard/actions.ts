@@ -31,7 +31,8 @@ export async function deleteText(textId: string) {
 
     return { success: true };
   } catch (error) {
-    console.error("Error deleting text:", error);
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.error("Error deleting text:", message);
     throw new Error("Failed to delete text");
   }
 }

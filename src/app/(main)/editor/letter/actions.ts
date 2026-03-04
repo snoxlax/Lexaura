@@ -9,8 +9,6 @@ export async function saveLetter(values: LetterValues) {
   const { id } = values;
   const letterValues = letterDocumentSchema.parse(values);
 
-  console.log("received letter values", values);
-
   const { userId } = await auth();
 
   if (!userId) {
@@ -58,7 +56,8 @@ export async function improveLetterText(content: string, mood: string) {
     const improvedContent = await improveText(content, mood || "professional");
     return { improvedContent };
   } catch (error) {
-    console.error("Error improving text:", error);
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.error("Error improving text:", message);
     throw new Error("Failed to improve text. Please try again.");
   }
 }
