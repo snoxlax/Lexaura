@@ -7,7 +7,7 @@ export default clerkMiddleware(async (auth, req) => {
     await auth.protect();
   }
 });
-//stopped here
+
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params

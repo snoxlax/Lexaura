@@ -16,7 +16,7 @@ ${content}`;
 
   try {
     const response = await openai.chat.completions.create({
-      model: "gemini-1.5-flash",
+      model: "gemini-3-flash-preview",
       messages: [
         { role: "system", content: "You are a helpful AI assistant." },
         { role: "user", content: prompt },
