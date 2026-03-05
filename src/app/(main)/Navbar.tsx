@@ -34,27 +34,35 @@ export default function Navbar() {
         </Link>
 
         <div className="flex items-center gap-3">
-          <ThemeToggle />
-          <UserButton
-            appearance={{
-              // Only apply theme after component is mounted on client
-              baseTheme: mounted && theme === "dark" ? dark : undefined,
-              elements: {
-                avatarBox: {
-                  width: 35,
-                  height: 35,
-                },
-              },
-            }}
-          >
-            <UserButton.MenuItems>
-              <UserButton.Link
-                href="/billing"
-                label="Billing"
-                labelIcon={<CreditCard className="size-4" />}
-              />
-            </UserButton.MenuItems>
-          </UserButton>
+          {mounted ? (
+            <>
+              <ThemeToggle />
+              <UserButton
+                appearance={{
+                  baseTheme: theme === "dark" ? dark : undefined,
+                  elements: {
+                    avatarBox: {
+                      width: 35,
+                      height: 35,
+                    },
+                  },
+                }}
+              >
+                <UserButton.MenuItems>
+                  <UserButton.Link
+                    href="/billing"
+                    label="Billing"
+                    labelIcon={<CreditCard className="size-4" />}
+                  />
+                </UserButton.MenuItems>
+              </UserButton>
+            </>
+          ) : (
+            <div className="flex items-center gap-3">
+              <div className="h-9 w-9" aria-hidden />
+              <div className="h-9 w-9 rounded-full bg-muted" aria-hidden />
+            </div>
+          )}
         </div>
       </div>
     </header>

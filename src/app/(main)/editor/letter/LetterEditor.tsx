@@ -30,7 +30,6 @@ export default function LetterEditor({ letterToEdit }: LetterEditorProps) {
   const [showSmLetterPreview, setShowSmLetterPreview] = useState(false);
   const [improvedText, setImprovedText] = useState<string>("");
   const [isImproving, setIsImproving] = useState(false);
-  const [showImproved, setShowImproved] = useState(false);
 
   const handleImproveText = async () => {
     if (!letterData.content?.trim()) {
@@ -49,10 +48,9 @@ export default function LetterEditor({ letterToEdit }: LetterEditorProps) {
         letterData.mood || "Professional",
       );
       setImprovedText(result.improvedContent);
-      setShowImproved(true);
       toast({
         title: "Text improved successfully!",
-        description: "Check the preview to see the AI-enhanced version.",
+        description: "See the AI-enhanced version on the right.",
       });
     } catch {
       toast({
@@ -69,7 +67,6 @@ export default function LetterEditor({ letterToEdit }: LetterEditorProps) {
     if (improvedText) {
       setLetterData((prev) => ({ ...prev, content: improvedText }));
       setImprovedText("");
-      setShowImproved(false);
       toast({
         title: "Improved text applied!",
         description: "The AI-enhanced version is now your main content.",
@@ -89,7 +86,7 @@ export default function LetterEditor({ letterToEdit }: LetterEditorProps) {
         <div className="text-center">
           <h1 className="text-2xl font-bold">Text Editor</h1>
           <p className="text-muted-foreground text-sm">
-            Write and organize your text with real-time preview.
+            Write and organize your text.
           </p>
         </div>
         <div className="w-20"></div>
@@ -119,10 +116,7 @@ export default function LetterEditor({ letterToEdit }: LetterEditorProps) {
           >
             <div className="bg-secondary flex w-full justify-center overflow-y-auto">
               <LetterPreview
-                letterData={letterData}
                 improvedText={improvedText}
-                showImproved={showImproved}
-                onToggleView={() => setShowImproved(!showImproved)}
                 onUseImproved={handleUseImprovedText}
               />
             </div>
@@ -136,7 +130,7 @@ export default function LetterEditor({ letterToEdit }: LetterEditorProps) {
             size="icon"
             onClick={() => setShowSmLetterPreview(!showSmLetterPreview)}
             className="md:hidden"
-            title={showSmLetterPreview ? "Show editor" : "Show preview"}
+            title={showSmLetterPreview ? "Show editor" : "Show results"}
           >
             {showSmLetterPreview ? <PenLineIcon /> : <FileUserIcon />}
           </Button>
