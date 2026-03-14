@@ -10,7 +10,7 @@ export async function improveText(
   mood: string,
 ): Promise<string> {
   const prompt = `Please improve the following text to match a ${mood} tone and style. 
-Fix only grammar and punctuation errors. Keep the original meaning.
+Fix only grammar and punctuation errors. dont use em dash. Keep the original meaning.
 
 ${content}`;
 

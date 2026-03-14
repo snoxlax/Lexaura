@@ -12,7 +12,6 @@ export async function deleteText(textId: string) {
       throw new Error("Unauthorized");
     }
 
-    // Check if the text exists and belongs to the user
     const existingText = await prisma.letter.findUnique({
       where: { id: textId, userId },
     });
@@ -21,13 +20,12 @@ export async function deleteText(textId: string) {
       throw new Error("Text not found");
     }
 
-    // Delete the text
     await prisma.letter.delete({
       where: { id: textId, userId },
     });
 
-    // Revalidate the dashboard page to show updated list
     revalidatePath("/dashboard");
+    revalidatePath("/editor/letter");
 
     return { success: true };
   } catch (error) {

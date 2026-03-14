@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/logo3.png";
 import { UserButton } from "@clerk/nextjs";
-import { CreditCard } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
@@ -47,15 +46,7 @@ export default function Navbar() {
                     },
                   },
                 }}
-              >
-                <UserButton.MenuItems>
-                  <UserButton.Link
-                    href="/billing"
-                    label="Billing"
-                    labelIcon={<CreditCard className="size-4" />}
-                  />
-                </UserButton.MenuItems>
-              </UserButton>
+              />
             </>
           ) : (
             <div className="flex items-center gap-3">

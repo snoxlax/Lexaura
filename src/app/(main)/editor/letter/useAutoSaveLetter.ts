@@ -23,7 +23,6 @@ export default function useAutoSaveLetter(letterData: LetterValues) {
   const [isSaving, setIsSaving] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  // Use refs to prevent race conditions
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const currentSavePromiseRef = useRef<Promise<{ id: string }> | null>(null);
 
@@ -33,7 +32,6 @@ export default function useAutoSaveLetter(letterData: LetterValues) {
 
   useEffect(() => {
     async function save() {
-      // Prevent concurrent saves
       if (currentSavePromiseRef.current) {
         return;
       }
@@ -55,8 +53,6 @@ export default function useAutoSaveLetter(letterData: LetterValues) {
         setLetterId(updatedLetter.id);
         setLastSavedData(newData);
 
-        // Update URL only if we're not already on the correct letterId
-        // and do it without triggering re-renders by checking current params
         const currentLetterId = searchParams.get("letterId");
         if (currentLetterId !== updatedLetter.id) {
           const newSearchParams = new URLSearchParams(searchParams);
@@ -81,7 +77,6 @@ export default function useAutoSaveLetter(letterData: LetterValues) {
                 variant: "secondary",
                 onClick: () => {
                   dismiss();
-                  // Clear the current save promise before retrying
                   currentSavePromiseRef.current = null;
                   save();
                 },
@@ -101,18 +96,15 @@ export default function useAutoSaveLetter(letterData: LetterValues) {
       JSON.stringify(lastSavedData, fileReplacer);
 
     if (hasUnsavedChanges && debouncedLetterData && !isSaving && !isError) {
-      // Clear any existing timeout
       if (saveTimeoutRef.current) {
         clearTimeout(saveTimeoutRef.current);
       }
 
-      // Add a small delay to batch rapid changes
       saveTimeoutRef.current = setTimeout(() => {
         save();
       }, 100);
     }
 
-    // Cleanup timeout on unmount
     return () => {
       if (saveTimeoutRef.current) {
         clearTimeout(saveTimeoutRef.current);
@@ -126,7 +118,6 @@ export default function useAutoSaveLetter(letterData: LetterValues) {
     isError,
     letterId,
     toast,
-    // Removed searchParams from dependencies to prevent infinite loop
   ]);
 
   return {

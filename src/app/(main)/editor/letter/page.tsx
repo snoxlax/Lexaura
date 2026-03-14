@@ -19,11 +19,17 @@ export default async function LetterPage({ searchParams }: PageProps) {
     return null;
   }
 
-  const letterToEdit = letterId
-    ? await prisma.letter.findUnique({
-        where: { id: letterId, userId },
-      })
-    : null;
+  const [letterToEdit, savedLetters] = await Promise.all([
+    letterId
+      ? prisma.letter.findUnique({ where: { id: letterId, userId } })
+      : null,
+    prisma.letter.findMany({
+      where: { userId },
+      orderBy: { updatedAt: "desc" },
+    }),
+  ]);
 
-  return <LetterEditor letterToEdit={letterToEdit} />;
+  return (
+    <LetterEditor letterToEdit={letterToEdit ?? null} savedLetters={savedLetters} />
+  );
 }

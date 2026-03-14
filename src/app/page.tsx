@@ -14,7 +14,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
       {/* Header */}
       <header className="flex h-16 items-center border-b bg-white/80 px-4 backdrop-blur-sm lg:px-6 dark:bg-gray-900/80">
         <div className="flex items-center gap-2">
@@ -43,7 +43,7 @@ export default async function Home() {
           <div className="space-y-4">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               Write Better with{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Clean & Simple
               </span>{" "}
               Text Editing
@@ -113,7 +113,7 @@ export default async function Home() {
         </div>
 
         {/* CTA Section */}
-        <div className="mt-24 space-y-6 rounded-2xl bg-gradient-to-r from-blue-600 to-purple-600 p-12 text-center text-white">
+        <div className="mt-24 space-y-6 rounded-2xl bg-linear-to-r from-blue-600 to-purple-600 p-12 text-center text-white">
           <h2 className="text-3xl font-bold">Ready to Write Better?</h2>
           <p className="mx-auto max-w-2xl text-xl text-blue-100">
             Join thousands of users who trust Lexaura for clean,
