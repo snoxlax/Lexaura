@@ -10,7 +10,7 @@ import useUnloadWarning from "@/hooks/useUnloadWarning";
 import { Letter } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { FileUserIcon, PenLineIcon, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { improveLetterText } from "./actions";
 import { toast } from "@/hooks/use-toast";
 
@@ -27,7 +27,6 @@ export default function LetterEditor({ letterToEdit }: LetterEditorProps) {
 
   useUnloadWarning(hasUnsavedChanges);
 
-  const [showSmLetterPreview, setShowSmLetterPreview] = useState(false);
   const [improvedText, setImprovedText] = useState<string>("");
   const [isImproving, setIsImproving] = useState(false);
 
@@ -50,7 +49,7 @@ export default function LetterEditor({ letterToEdit }: LetterEditorProps) {
       setImprovedText(result.improvedContent);
       toast({
         title: "Text improved successfully!",
-        description: "See the AI-enhanced version on the right.",
+        description: "See the AI-enhanced version below.",
       });
     } catch {
       toast({
@@ -91,49 +90,23 @@ export default function LetterEditor({ letterToEdit }: LetterEditorProps) {
         </div>
         <div className="w-20"></div>
       </header>
-      <main className="relative grow">
-        <div className="absolute top-0 bottom-0 flex w-full">
-          <div
-            className={cn(
-              "w-full space-y-6 overflow-y-auto p-6 md:block md:w-1/2",
-              showSmLetterPreview && "hidden",
-            )}
-          >
-            <LetterForm
-              letterData={letterData}
-              setLetterData={setLetterData}
-              isSaving={isSaving}
-              onImproveText={handleImproveText}
-              isImproving={isImproving}
-            />
-          </div>
-          <div className="grow md:border-r" />
-          <div
-            className={cn(
-              "hidden w-1/2 md:flex md:w-1/2",
-              showSmLetterPreview && "flex w-full",
-            )}
-          >
-            <div className="bg-secondary flex w-full justify-center overflow-y-auto">
-              <LetterPreview
-                improvedText={improvedText}
-                onUseImproved={handleUseImprovedText}
-              />
-            </div>
-          </div>
+      <main className="relative grow overflow-y-auto">
+        <div className="mx-auto w-full max-w-2xl space-y-8 p-6">
+          <LetterForm
+            letterData={letterData}
+            setLetterData={setLetterData}
+            isSaving={isSaving}
+            onImproveText={handleImproveText}
+            isImproving={isImproving}
+          />
+          <LetterPreview
+            improvedText={improvedText}
+            onUseImproved={handleUseImprovedText}
+          />
         </div>
       </main>
       <footer className="w-full border-t px-2 py-4">
         <div className="flex flex-wrap justify-center gap-3 px-4">
-          <Button
-            variant="outline"
-            size="icon"
-            onClick={() => setShowSmLetterPreview(!showSmLetterPreview)}
-            className="md:hidden"
-            title={showSmLetterPreview ? "Show editor" : "Show results"}
-          >
-            {showSmLetterPreview ? <PenLineIcon /> : <FileUserIcon />}
-          </Button>
           <div className="flex gap-3 px-4">
             <p
               className={cn(

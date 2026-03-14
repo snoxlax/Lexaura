@@ -61,13 +61,13 @@ export default function LetterForm({
   return (
     <div className="">
       <Form {...form}>
-        <form className="space-y-4">
+        <form className="space-y-4 space-x-2">
           <FormField
             control={form.control}
             name="subject"
             render={({ field }) => (
-              <FormItem className="flex items-center space-y-2 space-x-2">
-                <FormLabel className="">Title</FormLabel>
+              <FormItem className="flex items-center space-y-0 space-x-2">
+                <FormLabel>Title</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -84,7 +84,7 @@ export default function LetterForm({
             control={form.control}
             name="mood"
             render={({ field }) => (
-              <FormItem className="space-y-2 space-x-2">
+              <FormItem className="space-x-2">
                 <FormLabel>Mood</FormLabel>
                 <FormControl>
                   <DropdownMenu>
@@ -148,8 +148,7 @@ export default function LetterForm({
             control={form.control}
             name="content"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Content</FormLabel>
+              <FormItem className="mb-4 block">
                 <FormControl>
                   <Textarea
                     {...field}
@@ -157,6 +156,7 @@ export default function LetterForm({
                     className="min-h-[300px] resize-none"
                   />
                 </FormControl>
+
                 <FormMessage />
               </FormItem>
             )}
