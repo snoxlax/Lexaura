@@ -1,16 +1,31 @@
 import OpenAI from "openai";
+import type { MoodId } from "@/data/moods";
 
 const openai = new OpenAI({
-  apiKey: process.env.GEMINI_API_KEY, // your OpenAI key here
+  apiKey: process.env.GEMINI_API_KEY,
   baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
 });
 
+const moodPrompts: Record<MoodId, string> = {
+  grammar:
+    "You are a grammar and spelling expert. Fix all grammar, spelling, and punctuation errors in the text. Keep the original meaning and structure intact. Do not use em dashes.",
+  "git-commit":
+    "You are a git commit message expert. Rewrite the text as a clean, well-structured git commit message. Follow best practices for commit messages. Do not use em dashes.",
+  email:
+    "You are an email writing expert. Rewrite the text as a polished email. Maintain the original intent and key information. Do not use em dashes.",
+  costume:
+    "You are a creative writing assistant. Improve the text while keeping the original meaning. Do not use em dashes.",
+};
+
 export async function improveText(
   content: string,
-  mood: string,
+  moodId: MoodId,
+  styleTag?: string,
 ): Promise<string> {
-  const prompt = `Please improve the following text to match a ${mood} tone and style. 
-Fix only grammar and punctuation errors. dont use em dash. Keep the original meaning.
+  const baseInstruction = moodPrompts[moodId];
+  const styleClause = styleTag ? ` Apply a ${styleTag} tone and style.` : "";
+
+  const prompt = `${baseInstruction}${styleClause}
 
 ${content}`;
 

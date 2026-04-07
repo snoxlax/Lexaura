@@ -16,7 +16,12 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-export default function SavedTextCard({ letter }: { letter: Letter }) {
+interface SavedTextCardProps {
+  letter: Letter;
+  moodId: string;
+}
+
+export default function SavedTextCard({ letter, moodId }: SavedTextCardProps) {
   const [copied, setCopied] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -46,15 +51,15 @@ export default function SavedTextCard({ letter }: { letter: Letter }) {
 
   return (
     <>
-      <div className="group border-border bg-card relative rounded-lg border p-5">
+      <div className="group relative rounded-xl border border-zinc-800 bg-zinc-900/60 p-4">
         <div className="mb-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {letter.mood && (
-              <span className="text-muted-foreground text-xs font-medium uppercase tracking-widest">
-                {letter.mood}
+            {letter.styleTag && (
+              <span className="text-xs font-medium tracking-wider text-zinc-500 uppercase">
+                {letter.styleTag}
               </span>
             )}
-            <span className="text-muted-foreground text-xs">
+            <span className="text-xs text-zinc-500">
               {new Intl.DateTimeFormat("en-US", {
                 month: "short",
                 day: "numeric",
@@ -64,34 +69,36 @@ export default function SavedTextCard({ letter }: { letter: Letter }) {
           </div>
           <div className="flex items-center gap-1.5 opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100">
             <Link
-              href={`/editor/letter?letterId=${letter.id}`}
-              className="bg-secondary text-muted-foreground hover:bg-muted hover:text-foreground rounded-md p-1.5"
+              href={`/editor/${moodId}?letterId=${letter.id}`}
+              className="rounded-lg p-1.5 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100"
               aria-label="Load this text"
             >
               <BookOpen className="size-4" />
             </Link>
             <button
+              type="button"
               onClick={handleCopy}
-              className="bg-secondary text-muted-foreground hover:bg-muted hover:text-foreground rounded-md p-1.5"
+              className="rounded-lg p-1.5 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100"
               aria-label="Copy to clipboard"
             >
               {copied ? (
-                <Check className="text-primary size-4" />
+                <Check className="size-4 text-violet-400" />
               ) : (
                 <CopyIcon className="size-4" />
               )}
             </button>
             <button
+              type="button"
               onClick={() => setShowDialog(true)}
               disabled={isPending}
-              className="bg-secondary text-muted-foreground hover:bg-destructive/10 hover:text-destructive rounded-md p-1.5"
+              className="rounded-lg p-1.5 text-zinc-400 transition-colors hover:bg-red-950/50 hover:text-red-400"
               aria-label="Delete"
             >
               <Trash2 className="size-4" />
             </button>
           </div>
         </div>
-        <p className="text-foreground line-clamp-3 whitespace-pre-wrap text-sm leading-relaxed">
+        <p className="line-clamp-3 whitespace-pre-wrap text-sm leading-relaxed text-zinc-200">
           {letter.content || "No content"}
         </p>
       </div>

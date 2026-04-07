@@ -3,6 +3,7 @@
 import { auth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { MOOD_IDS } from "@/data/moods";
 
 export async function deleteText(textId: string) {
   try {
@@ -25,7 +26,9 @@ export async function deleteText(textId: string) {
     });
 
     revalidatePath("/dashboard");
-    revalidatePath("/editor/letter");
+    for (const id of MOOD_IDS) {
+      revalidatePath(`/editor/${id}`);
+    }
 
     return { success: true };
   } catch (error) {

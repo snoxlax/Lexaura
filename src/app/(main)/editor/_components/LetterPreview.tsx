@@ -34,28 +34,30 @@ function ResultCard({
   };
 
   return (
-    <div className="group border-border bg-card relative rounded-lg border p-5">
-      <div className="flex items-center justify-between">
-        <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">
+    <div className="group relative rounded-xl border border-zinc-800 bg-zinc-900/60 p-4">
+      <div className="flex items-start justify-between gap-3">
+        <p className="text-sm leading-relaxed whitespace-pre-wrap text-zinc-100">
           {item.text}
         </p>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5">
           {onUseImproved && (
             <button
+              type="button"
               onClick={() => onUseImproved(item.text)}
-              className="bg-secondary text-muted-foreground hover:bg-muted hover:text-foreground rounded-md p-1.5 opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100"
+              className="rounded-lg p-1.5 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100 md:opacity-0 md:group-hover:opacity-100"
               aria-label="Use this text"
             >
               <ArrowDownToLine className="size-4" aria-hidden />
             </button>
           )}
           <button
+            type="button"
             onClick={handleCopy}
-            className="bg-secondary text-muted-foreground hover:bg-muted hover:text-foreground rounded-md p-1.5 opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100"
+            className="rounded-lg p-1.5 text-zinc-400 transition-colors hover:bg-zinc-800 hover:text-zinc-100 md:opacity-0 md:group-hover:opacity-100"
             aria-label="Copy to clipboard"
           >
             {copied ? (
-              <Check className="text-primary size-4" aria-hidden />
+              <Check className="size-4 text-violet-400" aria-hidden />
             ) : (
               <CopyIcon className="size-4" aria-hidden />
             )}
@@ -73,7 +75,7 @@ export default function LetterPreview({
 }: LetterPreviewProps) {
   return (
     <div className={cn("w-full space-y-3", className)}>
-      <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
+      <p className="text-xs font-medium tracking-wider text-zinc-500 uppercase">
         Results
       </p>
       {improvedHistory.length > 0 ? (
@@ -87,8 +89,8 @@ export default function LetterPreview({
           ))}
         </div>
       ) : (
-        <div className="border-border text-muted-foreground flex flex-1 items-center justify-center rounded-lg border border-dashed p-8 text-center text-sm">
-          Click &quot;Improve with AI&quot; to see results here
+        <div className="flex min-h-[80px] flex-1 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 text-center text-sm text-zinc-500">
+          Click &quot;Rewrite&quot; to see results here
         </div>
       )}
     </div>

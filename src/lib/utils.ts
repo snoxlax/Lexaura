@@ -26,5 +26,6 @@ export function mapToLetterValues(
     subject: data?.subject || "",
     content: data?.content || "",
     mood: data?.mood || "",
+    styleTag: data?.styleTag || "",
   };
 }

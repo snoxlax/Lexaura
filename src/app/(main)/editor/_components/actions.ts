@@ -4,6 +4,8 @@ import { LetterValues, letterDocumentSchema } from "@/lib/validation";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 import { improveText } from "@/lib/ai";
+import { isMoodId } from "@/data/moods";
+import { revalidatePath } from "next/cache";
 
 export async function saveLetter(values: LetterValues) {
   const { id } = values;
@@ -23,25 +25,34 @@ export async function saveLetter(values: LetterValues) {
     throw new Error("Letter not found");
   }
 
-  if (id) {
-    return prisma.letter.update({
-      where: { id },
-      data: {
-        ...letterValues,
-        updatedAt: new Date(),
-      },
-    });
-  } else {
-    return prisma.letter.create({
-      data: {
-        ...letterValues,
-        userId,
-      },
-    });
+  const saved = id
+    ? await prisma.letter.update({
+        where: { id },
+        data: {
+          ...letterValues,
+          updatedAt: new Date(),
+        },
+      })
+    : await prisma.letter.create({
+        data: {
+          ...letterValues,
+          userId,
+        },
+      });
+
+  if (letterValues.mood) {
+    revalidatePath(`/editor/${letterValues.mood}`);
   }
+  revalidatePath("/dashboard");
+
+  return saved;
 }
 
-export async function improveLetterText(content: string, mood: string) {
+export async function improveLetterText(
+  content: string,
+  moodId: string,
+  styleTag?: string,
+) {
   const { userId } = await auth();
 
   if (!userId) {
@@ -52,8 +63,12 @@ export async function improveLetterText(content: string, mood: string) {
     throw new Error("No content to improve");
   }
 
+  if (!isMoodId(moodId)) {
+    throw new Error("Invalid mood");
+  }
+
   try {
-    const improvedContent = await improveText(content, mood || "professional");
+    const improvedContent = await improveText(content, moodId, styleTag);
     return { improvedContent };
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown error";

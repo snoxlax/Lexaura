@@ -6,6 +6,7 @@ export const letterDocumentSchema = z.object({
   subject: optionalString,
   content: optionalString,
   mood: optionalString,
+  styleTag: optionalString,
 });
 
 export type LetterValues = z.infer<typeof letterDocumentSchema> & {
